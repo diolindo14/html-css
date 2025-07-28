@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nababo Tecnologias - Tablets CIDEA</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet" />
+  
+  <!-- Ícones Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      background: #f8f9fa;
+      color: #333;
+      scroll-behavior: smooth;
+    }
+
+    header {
+      background-color: #1a3a8f;
+      padding: 20px 10vw;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(26, 58, 143, 0.3);
+    }
+
+    header h1 {
+      margin: 0;
+      font-weight: 700;
+      font-size: 1.9rem;
+      letter-spacing: 2px;
+      cursor: default;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.1rem;
+      margin-left: 25px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    nav a:hover {
+      color: #ff4757;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -5px;
+      left: 0;
+      background-color: #ff4757;
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    .social-header {
+      display: flex;
+      gap: 15px;
+      margin-left: 20px;
+    }
+
+    .social-header a {
+      color: white;
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+      padding: 5px;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .social-header a:hover {
+      transform: translateY(-3px);
+      color: white;
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .social-header .fa-whatsapp:hover { background-color: #25D366; }
+    .social-header .fa-instagram:hover { 
+      background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+    }
+    .social-header .fa-facebook:hover { background-color: #1877F2; }
+    .social-header .fa-tiktok:hover { background-color: #000; }
+
+    main {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 15px;
+    }
+
+    section {
+      margin-bottom: 80px;
+    }
+
+    h2 {
+      color: #1a3a8f;
+      font-size: 2.4rem;
+      margin-bottom: 25px;
+      border-bottom: 4px solid #ff4757;
+      display: inline-block;
+      padding-bottom: 8px;
+      font-weight: 700;
+    }
+
+    /* Seção tecnologia */
+    #technology {
+      background: white;
+      border-radius: 12px;
+      padding: 30px 25px;
+      box-shadow: 0 4px 15px rgba(26, 58, 143, 0.1);
+      line-height: 1.6;
+      font-size: 1.1rem;
+      color: #444;
+      border: 1px solid #e0e0e0;
+    }
+
+    #technology p {
+      margin-bottom: 1.2rem;
+    }
+
+    /* Produtos */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill,minmax(270px,1fr));
+      gap: 30px;
+    }
+
+    .product-card {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(26, 58, 143, 0.1);
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 1px solid #e0e0e0;
+    }
+
+    .product-card:hover {
+      box-shadow: 0 8px 25px rgba(26, 58, 143, 0.2);
+      transform: translateY(-5px);
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: contain;
+      border-bottom: 1px solid #eee;
+      margin-bottom: 15px;
+      border-radius: 8px;
+    }
+
+    .product-title {
+      font-weight: 600;
+      color: #1a3a8f;
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+      flex-grow: 1;
+    }
+
+    .product-description {
+      font-size: 0.95rem;
+      color: #555;
+      margin-bottom: 15px;
+      min-height: 58px;
+      line-height: 1.5;
+    }
+
+    .product-price {
+      font-weight: 700;
+      font-size: 1.3rem;
+      color: #ff4757;
+      margin-bottom: 15px;
+    }
+
+    /* Modal Produto */
+    #productModal {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1500;
+      padding: 15px;
+      overflow-y: auto;
+    }
+
+    #productModal.active {
+      display: flex;
+    }
+
+    #productModal .modal-content {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      max-width: 800px;
+      width: 100%;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(26, 58, 143, 0.3);
+      animation: modalShow 0.4s ease forwards;
+      border: 1px solid #e0e0e0;
+    }
+
+    @keyframes modalShow {
+      from {opacity:0; transform: translateY(-30px);}
+      to {opacity:1; transform: translateY(0);}
+    }
+
+    #productModal .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 1.8rem;
+      color: #1a3a8f;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-weight: 700;
+      transition: color 0.3s;
+    }
+
+    #productModal .close-btn:hover {
+      color: #ff4757;
+    }
+
+    #productModal img {
+      width: 100%;
+      max-height: 350px;
+      object-fit: contain;
+      margin-bottom: 25px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    #productModal h3 {
+      color: #1a3a8f;
+      margin-bottom: 20px;
+      font-size: 2rem;
+    }
+
+    #productModal p {
+      color: #555;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    #productModal .price {
+      color: #ff4757;
+      font-weight: 700;
+      font-size: 1.8rem;
+    }
+
+    /* Formulário contato */
+    form {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(26, 58, 143, 0.1);
+      max-width: 600px;
+      margin: 0 auto;
+      border: 1px solid #e0e0e0;
+    }
+
+    form label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #1a3a8f;
+    }
+
+    form input,
+    form textarea {
+      width: 100%;
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-family: inherit;
+      resize: vertical;
+      transition: all 0.3s ease;
+    }
+
+    form input:focus,
+    form textarea:focus {
+      border-color: #ff4757;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(255, 71, 87, 0.2);
+    }
+
+    form button {
+      background: #ff4757;
+      color: white;
+      border: none;
+      padding: 15px 25px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+
+    form button:hover {
+      background: #e8413d;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(255, 71, 87, 0.3);
+    }
+
+    .feedback {
+      text-align: center;
+      margin-top: 15px;
+      padding: 15px;
+      border-radius: 10px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .feedback.success {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .feedback.error {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    /* Rodapé */
+    footer {
+      background: #1a3a8f;
+      color: white;
+      text-align: center;
+      padding: 40px 15px 30px;
+      font-weight: 500;
+      position: relative;
+    }
+
+    .footer-contacts {
+      margin-top: 25px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .contact-item:hover {
+      transform: translateY(-3px);
+    }
+
+    .contact-icon {
+      font-size: 1.3rem;
+      color: #ff4757;
+    }
+
+    .contact-info {
+      text-align: left;
+    }
+
+    .contact-info a {
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .contact-info a:hover {
+      color: #ff4757;
+    }
+
+    .footer-social {
+      margin-top: 30px;
+    }
+
+    .footer-social a {
+      color: white;
+      font-size: 1.6rem;
+      margin: 0 12px;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+
+    .footer-social a:hover {
+      transform: translateY(-5px) scale(1.1);
+    }
+
+    .footer-social .fa-whatsapp:hover { color: #25D366; }
+    .footer-social .fa-instagram:hover { 
+      color: transparent;
+      background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+    .footer-social .fa-facebook:hover { color: #1877F2; }
+    .footer-social .fa-tiktok:hover { color: #000; background-color: #fff; border-radius: 3px; }
+
+    .copyright {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      font-size: 0.9rem;
+    }
+
+    /* Responsivo */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        text-align: center;
+        padding: 15px 5vw;
+        gap: 15px;
+      }
+      
+      header h1 {
+        font-size: 1.6rem;
+      }
+
+      nav {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      nav a {
+        margin: 0 10px;
+        font-size: 1rem;
+      }
+
+      .social-header {
+        margin-left: 0;
+        margin-top: 15px;
+        justify-content: center;
+        width: 100%;
+      }
+
+      .footer-contacts {
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .contact-item {
+        justify-content: center;
+      }
+
+      #productModal .modal-content {
+        padding: 20px;
+      }
+    }
+
+    @media (max-width: 600px) {
+      main {
+        margin: 25px auto;
+        padding: 0 10px;
+      }
+
+      h2 {
+        font-size: 1.8rem;
+      }
+
+      form {
+        padding: 20px;
+      }
+
+      .footer-social a {
+        margin: 0 8px;
+        font-size: 1.4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Nababo Tecnologias</h1>
+  <nav>
+    <a href="#technology">Tecnologia</a>
+    <a href="#products">Produtos</a>
+    <a href="#contact">Contato</a>
+    <div class="social-header">
+      <a href="https://wa.me/245955842850" aria-label="WhatsApp" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://wa.me/245955301525" aria-label="WhatsApp Secundário" target="_blank" title="WhatsApp (Secundário)"><i class="fab fa-whatsapp"></i></a>
+      <a href="https://instagram.com/nababotecnologias" aria-label="Instagram" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+      <a href="https://facebook.com/nababotecnologias" aria-label="Facebook" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
+      <a href="https://tiktok.com/@nababotecnologias" aria-label="TikTok" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <section id="technology">
+    <h2>Por que escolher os tablets CIDEA?</h2>
+    <p>
+      A CIDEA revolucionou o mercado de tablets com dispositivos que combinam desempenho excepcional e design elegante. Na Nababo Tecnologias, somos distribuidores oficiais da marca, oferecendo produtos com garantia e suporte técnico especializado.
+    </p>
+    <p>
+      Os tablets CIDEA destacam-se pela durabilidade de construção, qualidade das telas e baterias de longa duração. São ideais para estudantes, profissionais e famílias que buscam tecnologia acessível sem abrir mão da qualidade.
+    </p>
+    <p>
+      Com processadores potentes, armazenamento generoso e sistemas operacionais atualizados, os tablets CIDEA acompanham sua evolução digital, seja para trabalho, estudo ou entretenimento.
+    </p>
+  </section>
+
+  <section id="products">
+    <h2>Nossos Tablets CIDEA</h2>
+    <div class="products-grid" id="productsGrid">
+      <!-- Cards serão inseridos pelo JavaScript -->
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Entre em Contato</h2>
+    <form id="contactForm" action="https://formsubmit.co/contato@nababotecnologias.com" method="POST">
+      <input type="hidden" name="_subject" value="Novo contato - Nababo Tecnologias" />
+      <input type="hidden" name="_captcha" value="false" />
+      <input type="hidden" name="_next" value="https://nababotecnologias.com/obrigado.html" />
+
+      <label for="name">Nome completo</label>
+      <input type="text" id="name" name="name" placeholder="Seu nome" required />
+
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" placeholder="seu@email.com" required />
+
+      <label for="phone">Telefone</label>
+      <input type="tel" id="phone" name="phone" placeholder="(XX) XXXXX-XXXX" />
+
+      <label for="message">Mensagem</label>
+      <textarea id="message" name="message" placeholder="Escreva sua mensagem ou dúvida sobre nossos produtos CIDEA" rows="5" required></textarea>
+
+      <button type="submit">Enviar Mensagem</button>
+
+      <div id="formFeedback" class="feedback" style="display:none"></div>
+    </form>
+  </section>
+</main>
+
+<footer>
+  <p>© 2024 Nababo Tecnologias - Distribuidor Oficial CIDEA</p>
+  
+  <div class="footer-contacts">
+    <div class="contact-item">
+      <span class="contact-icon"><i class="fas fa-envelope"></i></span>
+      <div class="contact-info">
+        <a href="mailto:contato@nababotecnologias.com">contato@nababotecnologias.com</a>
+      </div>
+    </div>
+    <div class="contact-item">
+      <span class="contact-icon"><i class="fas fa-phone"></i></span>
+      <div class="contact-info">
+        <a href="tel:+245955842850">+245 955 842 850</a>
+      </div>
+    </div>
+    <div class="contact-item">
+      <span class="contact-icon"><i class="fas fa-phone"></i></span>
+      <div class="contact-info">
+        <a href="tel:+245955301525">+245 955 301 525</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-social">
+    <a href="https://wa.me/245955842850" aria-label="WhatsApp" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+    <a href="https://wa.me/245955301525" aria-label="WhatsApp Secundário" target="_blank" title="WhatsApp (Secundário)"><i class="fab fa-whatsapp"></i></a>
+    <a href="https://instagram.com/nababotecnologias" aria-label="Instagram" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+    <a href="https://facebook.com/nababotecnologias" aria-label="Facebook" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
+    <a href="https://tiktok.com/@nababotecnologias" aria-label="TikTok" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+  </div>
+
+  <div class="copyright">
+    <p>Todos os direitos reservados</p>
+  </div>
+</footer>
+
+<!-- Modal produto -->
+<div id="productModal" aria-hidden="true" role="dialog" aria-labelledby="modalTitle" aria-describedby="modalDesc">
+  <div class="modal-content" role="document">
+    <button class="close-btn" aria-label="Fechar modal">&times;</button>
+    <img src="" alt="" id="modalImage" />
+    <h3 id="modalTitle"></h3>
+    <p id="modalDesc"></p>
+    <p class="price" id="modalPrice"></p>
+  </div>
+</div>
+
+<script>
+  // Dados dos produtos CIDEA
+  const products = [
+    {
+      id: 1,
+      name: "CIDEA T10",
+      description: "Tablet CIDEA 10.1 polegadas com tela Full HD, processador quad-core, 4GB RAM e 64GB de armazenamento. Bateria de 6000mAh com até 8 horas de vídeo contínuo. Inclui capa protetora e caneta stylus básica.",
+      image: "https://i.imgur.com/JQZ1b0j.jpg",
+      price: 1299.00,
+    },
+    {
+      id: 2,
+      name: "CIDEA T8",
+      description: "Tablet CIDEA 8 polegadas compacto e leve, ideal para mobilidade. Tela HD, 3GB RAM e 32GB de armazenamento. Perfecto para leitura, navegação e redes sociais. Disponível em 4 cores.",
+      image: "https://i.imgur.com/KLmW5xU.jpg",
+      price: 899.00,
+    },
+    {
+      id: 3,
+      name: "CIDEA EduPad",
+      description: "Tablet educacional CIDEA com conteúdo pré-instalado para crianças. Tela IPS de 8 polegadas com filtro de luz azul, capa reforçada e controle parental. Bateria de 5000mAh com até 10 horas de uso.",
+      image: "https://i.imgur.com/MnVY3zT.jpg",
+      price: 799.00,
+    },
+    {
+      id: 4,
+      name: "CIDEA Pro",
+      description: "Tablet CIDEA profissional com tela de 10.8 polegadas 2K, processador octa-core, 6GB RAM e 128GB de armazenamento. Compatível com teclado magnético e caneta ativa. Ideal para produtividade.",
+      image: "https://i.imgur.com/p9XqN7f.jpg",
+      price: 1899.00,
+    }
+  ];
+
+  const productsGrid = document.getElementById('productsGrid');
+
+  // Função para formatar preço
+  function formatPrice(value){
+    return value.toLocaleString('pt-BR', {style: 'currency', currency: 'XOF'});
+  }
+
+  // Criar cards dos produtos dinamicamente
+  products.forEach(product => {
+    const card = document.createElement('article');
+    card.className = 'product-card';
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('aria-label', `Produto ${product.name}`);
+
+    card.innerHTML = `
+      <img src="${product.image}" alt="Tablet CIDEA ${product.name}" loading="lazy" />
+      <h3 class="product-title">${product.name}</h3>
+      <p class="product-description">${product.description.substring(0,85)}${product.description.length > 85 ? '...' : ''}</p>
+      <p class="product-price">${formatPrice(product.price)}</p>
+    `;
+
+    // Eventos para acessibilidade
+    card.addEventListener('click', () => openModal(product));
+    card.addEventListener('keypress', (e) => { 
+      if(e.key === 'Enter' || e.key === ' ') openModal(product);
+    });
+
+    productsGrid.appendChild(card);
+  });
+
+  // Modal e seus elementos
+  const productModal = document.getElementById('productModal');
+  const modalImage = document.getElementById('modalImage');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalDesc = document.getElementById('modalDesc');
+  const modalPrice = document.getElementById('modalPrice');
+  const closeBtn = productModal.querySelector('.close-btn');
+
+  function openModal(product) {
+    modalImage.src = product.image;
+    modalImage.alt = `Tablet CIDEA ${product.name}`;
+    modalTitle.textContent = product.name;
+    modalDesc.textContent = product.description;
+    modalPrice.textContent = formatPrice(product.price);
+
+    productModal.classList.add('active');
+    productModal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    closeBtn.focus();
+  }
+
+  function closeModal() {
+    productModal.classList.remove('active');
+    productModal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  // Eventos do modal
+  closeBtn.addEventListener('click', closeModal);
+  productModal.addEventListener('click', (e) => e.target === productModal && closeModal());
+  document.addEventListener('keydown', (e) => e.key === "Escape" && closeModal());
+
+  // Controle do formulário
+  const form = document.getElementById('contactForm');
+  const feedback = document.getElementById('formFeedback');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    feedback.style.display = 'block';
+    feedback.textContent = 'Enviando mensagem...';
+    feedback.className = 'feedback';
+
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: new FormData(form)
+      });
+
+      if(response.ok) {
+        feedback.textContent = 'Mensagem enviada com sucesso! Entraremos em contato em breve.';
+        feedback.className = 'feedback success';
+        form.reset();
+      } else {
+        const data = await response.json();
+        feedback.textContent = data.errors?.map(e => e.message).join(', ') || 'Erro ao enviar mensagem.';
+        feedback.className = 'feedback error';
+      }
+    } catch (error) {
+      feedback.textContent = 'Erro de conexão. Tente novamente mais tarde.';
+      feedback.className = 'feedback error';
+    }
+  });
+
+  // Melhorias de acessibilidade
+  document.querySelectorAll('nav a').forEach(link => {
+    link.setAttribute('aria-current', 'false');
+    if(link.href === window.location.href.split('#')[0] + link.getAttribute('href')) {
+      link.setAttribute('aria-current', 'page');
+    }
+  });
+</script>
+
+</body>
+</html>
