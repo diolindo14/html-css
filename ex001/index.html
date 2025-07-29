@@ -631,36 +631,36 @@
       name: "CIDEA T10",
       description: "Tablet CIDEA 10.1 polegadas com tela Full HD, processador quad-core, 4GB RAM e 64GB de armazenamento. Bateria de 6000mAh com até 8 horas de vídeo contínuo. Inclui capa protetora e caneta stylus básica.",
       image: "https://mzestore.com/wp-content/uploads/2024/07/71i1ndHNXHL._AC_SL1500_-1.jpg",
-      price: 1299.00,
+      price: "Negociável",
     },
     {
       id: 2,
       name: "CIDEA T8",
       description: "Tablet CIDEA 8 polegadas compacto e leve, ideal para mobilidade. Tela HD, 3GB RAM e 32GB de armazenamento. Perfecto para leitura, navegação e redes sociais. Disponível em 4 cores.",
       image: "https://venditokw.com/wp-content/uploads/IMG_4a31d08ada0e5b1155cb3481d6756d55-scaled.jpeg",
-      price: 899.00,
+      price: "Negociável",
     },
     {
       id: 3,
       name: "CIDEA EduPad",
       description: "Tablet educacional CIDEA com conteúdo pré-instalado para crianças. Tela IPS de 8 polegadas com filtro de luz azul, capa reforçada e controle parental. Bateria de 5000mAh com até 10 horas de uso.",
       image: "https://1995.ng/image/cache/catalog/C%20idea/Cm8800/g-1000x1000w.jpg",
-      price: 799.00,
+      price: "Negociável",
     },
     {
       id: 4,
       name: "CIDEA Pro",
       description: "Tablet CIDEA profissional com tela de 10.8 polegadas 2K, processador octa-core, 6GB RAM e 128GB de armazenamento. Compatível com teclado magnético e caneta ativa. Ideal para produtividade.",
       image: "https://mzestore.com/wp-content/uploads/2024/07/71i1ndHNXHL._AC_SL1500_-1.jpg",
-      price: 1899.00,
+      price: "Negociável",
     }
   ];
 
   const productsGrid = document.getElementById('productsGrid');
 
-  // Função para formatar preço
+  // Função para formatar preço (removida a formatação de moeda)
   function formatPrice(value){
-    return value.toLocaleString('pt-BR', {style: 'currency', currency: 'XOF'});
+    return value; // Agora apenas retorna o valor diretamente ("Negociável")
   }
 
   // Criar cards dos produtos dinamicamente
