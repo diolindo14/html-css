@@ -1,0 +1,751 @@
+<!doctype html>
+<html lang="pt">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Green Hard & Softh — Escola Superior de Informática</title>
+
+  <!-- Fonts & icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/yourkitid.js" crossorigin="anonymous"></script>
+  <!-- If you don't have a kit, you can keep the CDN used before; or remove icons and rely on SVGs -->
+
+  <style>
+    /* ======================
+       Reset e variáveis
+       ====================== */
+    :root{
+      --bg: #f6f8fb;
+      --card: #ffffff;
+      --muted: #6b7280;
+      --accent: #00a86b;        /* esmeralda */
+      --accent-700: #007a4f;
+      --navy: #07203a;
+      --accent-soft: #dff6ef;
+      --glass: rgba(255,255,255,0.6);
+      --radius: 12px;
+      --maxw: 1200px;
+      --container-padding: 1rem;
+      --transition: 240ms cubic-bezier(.2,.8,.2,1);
+      color-scheme: light;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg, var(--bg), #f0f4f8);
+      color: #0b1220;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.55;
+      -webkit-tap-highlight-color: transparent;
+    }
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block;height:auto}
+
+    /* ======================
+       Container & utilities
+       ====================== */
+    .container{
+      width:calc(100% - 2*var(--container-padding));
+      max-width:var(--maxw);
+      margin:0 auto;
+      padding:0 var(--container-padding);
+    }
+    .row{display:flex;gap:1rem;flex-wrap:wrap}
+    .col{flex:1 1 0}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+    /* ======================
+       Header / Nav (sticky)
+       ====================== */
+    header{
+      position:sticky;top:0;z-index:1200;
+      backdrop-filter: blur(6px);
+      background: linear-gradient(180deg, rgba(255,255,255,0.75), rgba(255,255,255,0.6));
+      border-bottom:1px solid rgba(11,18,32,0.06);
+    }
+    .topbar{
+      display:flex;align-items:center;justify-content:space-between;
+      gap:1rem;padding:0.7rem 0;
+    }
+    .brand{
+      display:flex;align-items:center;gap:0.85rem;
+    }
+    .logo-badge{
+      width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-700));
+      display:grid;place-items:center;color:#fff;font-weight:700;box-shadow:0 6px 18px rgba(0,0,0,0.08);
+      flex-shrink:0;
+    }
+    .brand h1{font-family:'Montserrat';font-size:1rem;margin:0;color:var(--navy)}
+    .brand p{font-size:0.75rem;margin:0;color:var(--muted)}
+    nav.primary{display:flex;align-items:center;gap:0.6rem}
+    nav.primary ul{display:flex;gap:0.6rem;list-style:none;padding:0;margin:0}
+    nav.primary a{display:inline-block;padding:0.6rem 0.9rem;border-radius:999px;color:var(--navy);font-weight:600;font-size:0.95rem;transition:var(--transition)}
+    nav.primary a:hover, nav.primary a:focus{background:var(--accent-soft);color:var(--accent);transform:translateY(-2px)}
+    .actions{display:flex;gap:0.6rem;align-items:center}
+    .btn{
+      display:inline-flex;align-items:center;gap:.6rem;padding:0.6rem 1rem;border-radius:999px;border:0;cursor:pointer;font-weight:700;
+      transition:var(--transition);box-shadow:0 6px 18px rgba(2,6,23,0.06);
+    }
+    .btn-primary{background:linear-gradient(90deg,var(--accent),var(--accent-700));color:white}
+    .btn-ghost{background:transparent;color:var(--navy);border:1px solid rgba(11,18,32,0.06)}
+    /* mobile menu */
+    .hamburger{
+      display:inline-grid;place-items:center;width:44px;height:44px;border-radius:10px;border:0;background:white;cursor:pointer;
+      box-shadow:0 6px 18px rgba(2,6,23,0.06);
+    }
+
+    /* ======================
+       Hero
+       ====================== */
+    .hero{
+      padding:3.6rem 0 2.4rem;
+      display:grid;align-items:center;gap:1.4rem;
+    }
+    .hero-grid{
+      display:grid;grid-template-columns:1fr 420px;gap:2rem;align-items:center;
+    }
+    .hero-title{
+      font-family:'Montserrat';font-size:clamp(1.5rem,3.6vw,2.6rem);margin:0 0 0.6rem;color:var(--navy);
+      letter-spacing:0.4px;
+    }
+    .hero-lead{color:var(--muted);margin:0 0 1.4rem;font-size:1.02rem}
+    .hero-ctas{display:flex;gap:0.8rem;flex-wrap:wrap}
+    .hero-card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.85));
+      padding:1.25rem;border-radius:14px;box-shadow:0 12px 40px rgba(2,6,23,0.06);
+      border:1px solid rgba(7,32,58,0.03);
+    }
+    .stat-grid{display:flex;gap:0.8rem;flex-wrap:wrap;margin-top:1rem}
+    .stat{background:var(--accent-soft);padding:0.6rem 0.9rem;border-radius:8px;font-weight:600;color:var(--accent)}
+
+    /* hero illustration */
+    .hero-ill{
+      height:100%;min-height:220px;border-radius:14px;background:
+        linear-gradient(135deg, rgba(0,168,107,0.08), rgba(7,32,58,0.06));
+      display:grid;place-items:center;padding:1rem;border:1px solid rgba(7,32,58,0.03)
+    }
+    .hero-ill svg{width:100%;height:100%;max-height:340px;opacity:0.95}
+
+    /* ======================
+       Sections
+       ====================== */
+    section{padding:3.2rem 0}
+    .section-title{font-family:'Montserrat';font-size:1.2rem;margin:0 0 0.5rem;color:var(--navy)}
+    .section-sub{color:var(--muted);margin:0 0 1.6rem;max-width:70ch}
+
+    /* About */
+    .about-grid{display:grid;grid-template-columns:1fr 340px;gap:1.4rem;align-items:start}
+    .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0.8rem;margin-top:1rem}
+    .feature{
+      background:var(--card);padding:1rem;border-radius:12px;box-shadow:0 10px 30px rgba(2,6,23,0.04);
+      border-left:4px solid var(--accent-soft);
+      display:flex;gap:0.9rem;align-items:center;
+    }
+    .feature i{background:var(--accent);color:white;width:44px;height:44px;border-radius:10px;display:grid;place-items:center}
+
+    /* Courses (tabs) */
+    .tabs{display:flex;gap:0.5rem;flex-wrap:wrap}
+    .tab-btn{background:white;padding:0.5rem 0.9rem;border-radius:999px;border:1px solid rgba(11,18,32,0.04);cursor:pointer;font-weight:600}
+    .tab-btn[aria-selected="true"]{background:linear-gradient(90deg,var(--accent),var(--accent-700));color:#fff;box-shadow:0 10px 30px rgba(0,168,107,0.12)}
+    .course-card{
+      margin-top:1rem;background:var(--card);padding:1.25rem;border-radius:14px;box-shadow:0 12px 32px rgba(2,6,23,0.06);
+    }
+    .course-header{display:flex;justify-content:space-between;align-items:center;gap:1rem}
+    .price-pill{background:rgba(0,168,107,0.08);color:var(--accent-700);padding:0.45rem 0.8rem;border-radius:999px;font-weight:800}
+
+    .subjects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:0.6rem;margin-top:1rem}
+    .subject{
+      background:linear-gradient(180deg, #f7fbf9, white);padding:0.6rem;border-radius:9px;border:1px solid rgba(7,32,58,0.03);font-weight:600;color:var(--navy)
+    }
+
+    /* Enrollment cards */
+    .enroll-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem}
+    .enroll-card{
+      padding:1.1rem;border-radius:14px;background:linear-gradient(180deg,#fff,#fbfcfd);box-shadow:0 10px 30px rgba(2,6,23,0.05);
+      border-left:6px solid var(--accent);
+    }
+    .enroll-card h3{margin:0 0 0.6rem;color:var(--navy)}
+    .enroll-list{list-style:none;padding:0;margin:0}
+    .enroll-list li{padding:0.55rem 0;border-bottom:1px dashed rgba(7,32,58,0.04);color:var(--muted)}
+
+    /* Schedules */
+    .schedule-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem}
+    .schedule-card{padding:1rem;border-radius:12px;background:linear-gradient(180deg,#08314b,#0f4870);color:white}
+    .schedule-table{width:100%;border-collapse:collapse;margin-top:0.6rem}
+    .schedule-table th,.schedule-table td{padding:0.6rem;text-align:left;border-bottom:1px solid rgba(255,255,255,0.06);font-size:0.95rem}
+    .schedule-table th{opacity:0.9;font-weight:700}
+
+    /* Contact */
+    .contact-grid{display:grid;grid-template-columns:1fr 360px;gap:1rem}
+    .contact-item{display:flex;gap:0.85rem;align-items:flex-start;padding:0.6rem 0}
+    .contact-icon{width:52px;height:52px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-700));display:grid;place-items:center;color:#fff;font-weight:700;flex-shrink:0}
+    .map-box{height:320px;border-radius:12px;background:linear-gradient(180deg,#e6fbf3, #dff6ef);display:grid;place-items:center;border:1px solid rgba(7,32,58,0.03)}
+
+    /* Footer */
+    footer{background:linear-gradient(180deg,#071b2b,#052033);color:#cfeef0;padding:2.2rem 0 3.4rem}
+    .footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem}
+    .footer-logo{font-weight:800;font-family:'Montserrat';color:#b4f0d6;font-size:1.15rem}
+
+    /* ======================
+       Responsividade (mobile-first)
+       ====================== */
+    @media(min-width:720px){
+      .hero{padding:4.2rem 0}
+      .hero-grid{grid-template-columns:1fr 420px}
+      .about-grid{grid-template-columns:1fr 360px}
+    }
+    @media(max-width:719px){
+      nav.primary{display:none}
+      .hero-grid{grid-template-columns:1fr}
+      .about-grid{grid-template-columns:1fr}
+      .contact-grid{grid-template-columns:1fr}
+    }
+    @media(max-width:420px){
+      .brand h1{font-size:0.95rem}
+      .brand p{font-size:0.68rem}
+      .hero-lead{font-size:0.95rem}
+      .section-sub{font-size:0.95rem}
+    }
+
+    /* small interactive touches */
+    .fade-up{opacity:0;transform:translateY(8px);transition:var(--transition) 300ms}
+    .fade-up.show{opacity:1;transform:translateY(0)}
+    /* focus visible */
+    :focus{outline:3px solid rgba(0,168,107,0.14);outline-offset:3px}
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container topbar" role="banner">
+      <div class="brand" aria-label="Green Hard & Softh — Escola Superior de Informática">
+        <div class="logo-badge" aria-hidden="true">
+          <!-- simple SVG icon -->
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M3 7h18M3 12h12" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div>
+          <h1>Green Hard & Softh</h1>
+          <p>Escola Superior de Informática — Desde 2007</p>
+        </div>
+      </div>
+
+      <nav class="primary" aria-label="Navegação principal">
+        <ul>
+          <li><a href="#inicio">Início</a></li>
+          <li><a href="#sobre">Sobre</a></li>
+          <li><a href="#cursos">Cursos</a></li>
+          <li><a href="#matricula">Matrícula</a></li>
+          <li><a href="#horarios">Horários</a></li>
+          <li><a href="#contactos">Contactos</a></li>
+        </ul>
+      </nav>
+
+      <div class="actions">
+        <a class="btn btn-ghost" href="#contactos" aria-label="Contacte-nos">Contactos</a>
+        <a class="btn btn-primary" href="#matricula" aria-label="Matricule-se">Matricular-se</a>
+
+        <!-- hamburger for small screens -->
+        <button id="menuToggle" class="hamburger" aria-expanded="false" aria-controls="mobileMenu" aria-label="Abrir menu">
+          <svg width="18" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M3 6h18M3 12h18M3 18h18" stroke="#0b1220" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- mobile nav -->
+    <div id="mobileMenu" style="display:none;background:linear-gradient(180deg,rgba(255,255,255,0.98),white);border-top:1px solid rgba(7,32,58,0.03);">
+      <div class="container" style="padding:0.8rem 0 1rem">
+        <nav aria-label="Menu móvel">
+          <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.5rem">
+            <li><a href="#inicio">Início</a></li>
+            <li><a href="#sobre">Sobre</a></li>
+            <li><a href="#cursos">Cursos</a></li>
+            <li><a href="#matricula">Matrícula</a></li>
+            <li><a href="#horarios">Horários</a></li>
+            <li><a href="#contactos">Contactos</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <main>
+    <section id="inicio" class="hero container" aria-labelledby="heroTitle">
+      <div class="hero-grid">
+        <div>
+          <h2 id="heroTitle" class="hero-title">O Futuro é Hoje — Forma profissionais de excelência</h2>
+          <p class="hero-lead">Licenciatura em Engenharia Informática com ênfase em prática, empregabilidade e tecnologias de ponta. Programa intensivo de 5 anos com especializações.</p>
+
+          <div class="hero-ctas">
+            <a href="#cursos" class="btn btn-ghost" role="button"><i class="fas fa-graduation-cap" aria-hidden="true"></i> Ver Cursos</a>
+            <a href="#matricula" class="btn btn-primary" role="button"><i class="fas fa-pencil-alt" aria-hidden="true"></i> Matricular-se</a>
+          </div>
+
+          <div class="hero-card" style="margin-top:1.4rem">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap">
+              <div>
+                <div style="font-weight:700">Desde 2007</div>
+                <div style="color:var(--muted)">Formando profissionais em TI</div>
+              </div>
+              <div class="stat-grid" role="list" aria-hidden="true">
+                <div class="stat">5 anos (Licenciatura)</div>
+                <div class="stat">Especializações</div>
+                <div class="stat">Empregabilidade</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="hero-ill" aria-hidden="true">
+          <img src="1652053838856.jpg" alt="Logotipo Green Hard & Softh" style="max-width:100%;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.08)">
+          <!--<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustração de tecnologia">
+            <defs>
+              <linearGradient id="g1" x1="0" x2="1">
+                <stop offset="0" stop-color="#b8f0d6"/>
+                <stop offset="1" stop-color="#00a86b"/>
+              </linearGradient>
+            </defs>
+            <rect width="600" height="400" rx="14" fill="url(#g1)"/>
+            <g transform="translate(40,36)" fill="#fff" opacity="0.92">
+              <rect x="0" y="0" width="220" height="120" rx="10" fill="#04293a" opacity="0.06"></rect>
+              <g transform="translate(20,20)">
+                <rect x="0" y="0" width="180" height="18" rx="6" fill="#fff" opacity="0.12"/>
+                <rect x="0" y="34" width="120" height="14" rx="6" fill="#fff" opacity="0.12"/>
+                <rect x="0" y="66" width="140" height="10" rx="6" fill="#fff" opacity="0.08"/>
+              </g>
+            </g>
+          </svg>-->
+        </aside>
+      </div>
+    </section>
+
+    <!-- SOBRE -->
+    <section id="sobre" class="container">
+      <h3 class="section-title">Sobre a Escola</h3>
+      <p class="section-sub">A Green Hard & Softh é a primeira e única instituição de ensino superior especializada em tecnologia da informação e comunicação na Guiné-Bissau.</p>
+
+      <div class="about-grid">
+        <div>
+          <p><strong>Green Hard & Softh</strong> — instituição especializada em Engenharia Informática. Desde 2007, formamos profissionais qualificados para o mercado de trabalho, com uma combinação equilibrada entre teoria e prática.</p>
+
+          <p><strong>Missão:</strong> Formar profissionais de excelência em Engenharia Informática, dotando-os de competências técnicas e práticas.</p>
+          <p><strong>Visão:</strong> Ser referência no ensino tecnológico na Guiné-Bissau e contribuir para o desenvolvimento do país.</p>
+
+          <div class="features" aria-hidden="false">
+            <div class="feature"><i class="fas fa-graduation-cap"></i><div><strong>Qualidade</strong><div style="color:var(--muted)">Ensino de excelência</div></div></div>
+            <div class="feature"><i class="fas fa-robot"></i><div><strong>Inovação</strong><div style="color:var(--muted)">Tecnologia de ponta</div></div></div>
+            <div class="feature"><i class="fas fa-briefcase"></i><div><strong>Empregabilidade</strong><div style="color:var(--muted)">Preparação para o mercado</div></div></div>
+          </div>
+
+          <!-- motivational excerpt kept (trimmed visually but full text below) -->
+          <details style="margin-top:1rem;border-radius:10px;padding:0.9rem;background:linear-gradient(180deg,#fff,#fbfcfd);border:1px solid rgba(7,32,58,0.03)">
+            <summary style="font-weight:700;cursor:pointer">Mensagem — "O Futuro é Hoje"</summary>
+            <div style="margin-top:0.6rem;color:var(--muted);line-height:1.6">
+              À primeira vista, a um leitor menos atento, torna-se difícil ficar convencido de que o futuro, de que tanto falamos, tem sempre o seu início precisamente no momento em que nos encontramos e estamos a falar dele.
+                Isto, partindo daquilo que é tradicional ouvir dizer: que ontem foi o PASSADO, hoje é o PRESENTE e amanhã será o FUTURO.
+
+                O avanço tecnológico tem vindo a mostrar e a tornar o futuro cada vez mais presente.
+                E, na verdade, quem quer mudar alguma coisa na sua vida terá, forçosamente, de mudar os seus pensamentos — para aquilo que, com certeza, deseja.
+
+                Portanto, o que está a pensar agora (independentemente de ser algo bom ou mau) está a criar a sua vida futura.
+                A sua vida está nas suas mãos!
+
+                Esteja onde estiver neste momento e, seja o que for que lhe tenha acontecido, pode começar a escolher conscientemente os seus pensamentos e pode mudar a sua vida.
+                Não existem situações irremediáveis nem sem esperança.
+                Pode parecer um exagero, mas acredite: todas as circunstâncias da sua vida podem mudar.
+
+                É a sua decisão abraçar esta forma de pensar — e isso constitui uma nobre e indelével preocupação da GHEFK BARD & SOFH, que promete abrir-lhe novos horizontes prósperos.
+
+                Cabe-lhe decidir o que quer ser, fazer e ter!
+                Tudo porque o seu futuro começa já — o rumo é HOJE.
+
+                O nosso futuro será o fruto do nosso pensamento atual — a decisão do agora.
+                A sua vida pode ser absolutamente fenomenal — e deve sê-lo! — e sê-lo-á, quando começar a projetar o seu futuro desejado.
+
+                Você é criador de si próprio, do seu futuro e do seu destino.
+                É chegada a altura de abraçar a grandiosidade do agora.
+
+                Não espere que o futuro mude a sua vida — seja você a mudar a sua vida futura!
+              <!-- Mantive o texto original, se preferires completo aqui, posso colocá-lo por extenso -->
+            </div>
+          </details>
+        </div>
+
+        <aside>
+          <div style="background:linear-gradient(180deg,#eafff5,#dff6ef);padding:1rem;border-radius:12px;box-shadow:0 8px 30px rgba(2,6,23,0.04)">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:0.6rem">
+              <div style="background:linear-gradient(90deg,var(--accent),var(--accent-700));width:88px;height:88px;border-radius:12px;display:grid;place-items:center;color:#fff;font-weight:800;font-size:1.25rem">GHS</div>
+              <div style="font-weight:800">Green Hard & Softh</div>
+              <div style="color:var(--muted)">Escola Superior de Informática</div>
+              <div style="margin-top:0.6rem"><strong>Desde 2007</strong></div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- CURSOS -->
+    <section id="cursos" class="container" aria-labelledby="cursoTitle">
+      <h3 id="cursoTitle" class="section-title">Curso Superior de Engenharia Informática</h3>
+      <p class="section-sub">Programa de 5 anos com especializações em áreas de alta procura no mercado.</p>
+
+      <div>
+        <div class="tabs" role="tablist" aria-label="Anos do curso">
+          <button class="tab-btn" role="tab" aria-selected="true" aria-controls="year1" id="tab-year1" data-target="year1">1º Ano</button>
+          <button class="tab-btn" role="tab" aria-selected="false" aria-controls="year2" id="tab-year2" data-target="year2">2º Ano</button>
+          <button class="tab-btn" role="tab" aria-selected="false" aria-controls="year3" id="tab-year3" data-target="year3">3º Ano</button>
+          <button class="tab-btn" role="tab" aria-selected="false" aria-controls="year4" id="tab-year4" data-target="year4">4º Ano</button>
+          <button class="tab-btn" role="tab" aria-selected="false" aria-controls="year5" id="tab-year5" data-target="year5">5º Ano</button>
+        </div>
+
+        <!-- content panels -->
+        <div id="year1" role="tabpanel" aria-labelledby="tab-year1" class="course-card">
+          <div class="course-header">
+            <h4 style="margin:0;font-weight:800">1º Ano — Fundamentos</h4>
+            <div class="price-pill">26.500 XOF/mês</div>
+          </div>
+          <div class="subjects-grid" style="margin-top:0.9rem">
+            <div class="subject">Matemática Discreta</div>
+            <div class="subject">Introdução à Programação</div>
+            <div class="subject">Arquitetura de Computadores</div>
+            <div class="subject">Sistemas Digitais</div>
+            <div class="subject">Algoritmos e Estruturas de Dados</div>
+            <div class="subject">Inglês Técnico</div>
+            <div class="subject">Português</div>
+            <div class="subject">Fundamentos de Redes</div>
+          </div>
+        </div>
+
+        <div id="year2" role="tabpanel" aria-labelledby="tab-year2" class="course-card" hidden>
+          <div class="course-header">
+            <h4 style="margin:0;font-weight:800">2º Ano — Bases Técnicas</h4>
+            <div class="price-pill">29.000 XOF/mês</div>
+          </div>
+          <div class="subjects-grid" style="margin-top:0.9rem">
+            <div class="subject">Análise Matemática</div>
+            <div class="subject">Arquitetura de Computadores (avançado)</div>
+            <div class="subject">Álgebra Linear</div>
+            <div class="subject">Mecânica e Electricidade</div>
+            <div class="subject">Programação Orientada a Objectos</div>
+            <div class="subject">Circuitos de Comunicações</div>
+            <div class="subject">Algoritmos e Estruturas de Dados</div>
+            <div class="subject">Português & Inglês</div>
+          </div>
+        </div>
+
+        <div id="year3" role="tabpanel" aria-labelledby="tab-year3" class="course-card" hidden>
+          <div class="course-header">
+            <h4 style="margin:0;font-weight:800">3º Ano — Desenvolvimento</h4>
+            <div class="price-pill">29.000 XOF/mês</div>
+          </div>
+          <div class="subjects-grid" style="margin-top:0.9rem">
+            <div class="subject">Gestão e Contabilidade Empresarial</div>
+            <div class="subject">Bases de Dados</div>
+            <div class="subject">Sistemas Operativos</div>
+            <div class="subject">Teoria da Computação</div>
+            <div class="subject">Hardware e Microprocessador</div>
+            <div class="subject">Redes Digitais — Fundamentos</div>
+            <div class="subject">Concepção e Desenvolvimento de Sistemas</div>
+            <div class="subject">Programação em Rede</div>
+          </div>
+        </div>
+
+        <div id="year4" role="tabpanel" aria-labelledby="tab-year4" class="course-card" hidden>
+          <div class="course-header">
+            <h4 style="margin:0;font-weight:800">4º Ano — Avançado</h4>
+            <div class="price-pill">31.500 XOF/mês</div>
+          </div>
+          <div class="subjects-grid" style="margin-top:0.9rem">
+            <div class="subject">Processamento de Informação</div>
+            <div class="subject">Engenharia de Software</div>
+            <div class="subject">Inteligência Artificial</div>
+            <div class="subject">Multimédia e Computação Gráfica</div>
+            <div class="subject">Redes Digitais — Sistemas e Serviços</div>
+            <div class="subject">Sistemas Distribuídos</div>
+            <div class="subject">Interação Pessoa–Máquina</div>
+            <div class="subject">Metodologia Científica</div>
+          </div>
+        </div>
+
+        <div id="year5" role="tabpanel" aria-labelledby="tab-year5" class="course-card" hidden>
+          <div class="course-header">
+            <h4 style="margin:0;font-weight:800">5º Ano — Especialização</h4>
+            <div class="price-pill">35.000 XOF/mês</div>
+          </div>
+          <div style="margin-top:0.8rem">
+            <strong>Especializações Disponíveis</strong>
+            <div class="subjects-grid" style="margin-top:0.6rem">
+              <div class="subject">Hardware & Robótica</div>
+              <div class="subject">Programação</div>
+              <div class="subject">Banco de Dados</div>
+              <div class="subject">Redes de Computadores</div>
+              <div class="subject">Engenharia Médica</div>
+            </div>
+            <p style="margin-top:0.9rem;color:var(--muted)"><strong>Projeto Final:</strong> Desenvolvimento de um projeto de fim de curso na área escolhida.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MATRÍCULA -->
+    <section id="matricula" class="container" aria-labelledby="matricTitle">
+      <h3 id="matricTitle" class="section-title">Condições de Matrícula</h3>
+      <p class="section-sub">Processo simplificado para garantir sua vaga na melhor escola de informática da Guiné-Bissau</p>
+
+      <div class="enroll-grid">
+        <div class="enroll-card">
+          <h3><i class="fas fa-file-alt" aria-hidden="true"></i>&nbsp; Documentos Exigidos</h3>
+          <ul class="enroll-list" aria-label="Documentos exigidos">
+            <li>Cópia de B.I.</li>
+            <li>2 fotografias tipo passe</li>
+            <li>Certificado de Habilitações</li>
+            <li>Comprovativo de pagamento das taxas</li>
+          </ul>
+        </div>
+
+        <div class="enroll-card">
+          <h3><i class="fas fa-money-bill-wave" aria-hidden="true"></i>&nbsp; Pagamentos & Taxas</h3>
+          <ul class="enroll-list" aria-label="Taxas">
+            <li>Inscrição estudante interno: 10.000 XOF</li>
+            <li>Pagamento do décimo mês (10º)</li>
+            <li>Boletim: 500 XOF</li>
+            <li>TAE: 1.000 XOF/Ano</li>
+            <li>Folha de prova: 2.000 XOF/Ano</li>
+            <li>Caderneta de Notas: 3.000 XOF/Ano</li>
+            <li>Folha de avaliação contínua: 3.500 XOF/Ano</li>
+            <li>Cartão de Estudante: 2.500 XOF/Ano</li>
+          </ul>
+        </div>
+      </div>
+
+      <div style="text-align:center;margin-top:1.2rem">
+        <a class="btn btn-primary" href="#contactos"><i class="fas fa-phone-alt" aria-hidden="true"></i> Entre em Contacto</a>
+      </div>
+    </section>
+
+    <!-- HORÁRIOS -->
+    <section id="horarios" class="container">
+      <h3 class="section-title">Horários</h3>
+      <p class="section-sub">Flexibilidade para conciliar estudos com outras atividades</p>
+
+      <div class="schedule-grid">
+        <div class="schedule-card">
+          <h4 style="margin:0 0 0.6rem;font-weight:800">Turnos de Aula</h4>
+          <table class="schedule-table" role="table" aria-label="Horários de aulas">
+            <thead>
+              <tr><th>Turno</th><th>Dias</th><th>Horário</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Manhã</td><td>Segunda a Sexta</td><td>07:20 - 12:50</td></tr>
+              <tr><td>Tarde</td><td>Segunda a Sexta</td><td>13:00 - 19:15</td></tr>
+              <tr><td>Noite</td><td>Segunda a Sexta</td><td>17:45 - 24:00</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="schedule-card">
+          <h4 style="margin:0 0 0.6rem;font-weight:800">Actividades Extra Curriculares</h4>
+          <div style="color:rgba(255,255,255,0.95)">
+            <p>As actividades extra curriculares realizam-se aos Sábados e incluem:</p>
+            <ul style="margin:0 0 0 1rem">
+              <li>Reposição de aulas perdidas</li>
+              <li>Seminários e Palestras</li>
+              <li>Actividades desportivas e culturais</li>
+              <li>Intercâmbios</li>
+              <li>Workshops técnicos</li>
+              <li>Visitas de estudo</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACTOS -->
+    <section id="contactos" class="container" aria-labelledby="contactTitle">
+      <h3 id="contactTitle" class="section-title">Contactos</h3>
+      <p class="section-sub">Estamos sempre disponíveis para esclarecer suas dúvidas</p>
+
+      <div class="contact-grid">
+        <div>
+          <div class="contact-item">
+            <div class="contact-icon" aria-hidden="true"><i class="fas fa-map-marker-alt"></i></div>
+            <div>
+              <strong>Endereço</strong>
+              <div style="color:var(--muted)">Av. Combatente Liberdade da Pátria</div>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon" aria-hidden="true"><i class="fas fa-phone"></i></div>
+            <div>
+              <strong>Telefones</strong>
+              <div style="color:var(--muted)">+245 95 565 12 49</div>
+              <div style="color:var(--muted)">+245 95 529 54 75</div>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon" aria-hidden="true"><i class="fas fa-envelope"></i></div>
+            <div>
+              <strong>Email</strong>
+              <div style="color:var(--muted)">ghsespf@hotmail.com</div>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon" aria-hidden="true"><i class="fas fa-globe"></i></div>
+            <div>
+              <strong>Website</strong>
+              <div style="color:var(--muted)">www.ghsescolasuperiordeinformatica.com</div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="map-box" aria-hidden="true">
+          <!-- Placeholder for map: you can later embed Google Maps iframe or similar -->
+          <div style="text-align:center">
+            <i class="fas fa-map-marked-alt" style="font-size:28px;color:var(--accent-700)"></i>
+            <div style="font-weight:700;margin-top:0.5rem">Localização da Escola</div>
+            <div style="color:var(--muted)">Av. Combatente Liberdade da Pátria</div>
+          </div>
+        </aside>
+      </div>
+    
+<form action="mailto:ghsespf@hotmail.com" method="post" enctype="text/plain" style="margin-top:1rem">
+  <label for="name"><strong>Nome:</strong></label><br>
+  <input type="text" id="name" name="Nome" required style="width:100%;padding:8px;border-radius:8px;border:1px solid #ccc"><br><br>
+
+  <label for="email"><strong>Email:</strong></label><br>
+  <input type="email" id="email" name="Email" required style="width:100%;padding:8px;border-radius:8px;border:1px solid #ccc"><br><br>
+
+  <label for="message"><strong>Mensagem:</strong></label><br>
+  <textarea id="message" name="Mensagem" rows="5" required style="width:100%;padding:8px;border-radius:8px;border:1px solid #ccc"></textarea><br><br>
+
+  <button type="submit" class="btn btn-primary">Enviar Mensagem</button>
+</form>
+
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo">Green Hard & Softh</div>
+          <p style="margin:0.5rem 0;color:#bfeee5">Escola Superior de Informática — Formando profissionais desde 2007.</p>
+          <p style="font-style:italic;color:#9fded0">"O Futuro é Hoje"</p>
+        </div>
+
+        <div>
+          <strong style="display:block;margin-bottom:0.6rem;color:#bfeee5">Links Rápidos</strong>
+          <nav aria-label="links rápidos">
+            <ul style="list-style:none;padding:0;margin:0;display:grid;gap:0.4rem">
+              <li><a href="#inicio">Início</a></li>
+              <li><a href="#sobre">Sobre</a></li>
+              <li><a href="#cursos">Cursos</a></li>
+              <li><a href="#matricula">Matrícula</a></li>
+              <li><a href="#horarios">Horários</a></li>
+              <li><a href="#contactos">Contactos</a></li>
+            </ul>
+          </nav>
+        </div>
+
+        <div>
+          <strong style="display:block;margin-bottom:0.6rem;color:#bfeee5">Contactos</strong>
+          <p style="margin:0;color:#9fded0"><i class="fas fa-map-marker-alt"></i> Av. Combatente Liberdade da Pátria</p>
+          <p style="margin:0;color:#9fded0"><i class="fas fa-phone"></i> +245 955 651 249 / 955 295 475</p>
+          <p style="margin:0;color:#9fded0"><i class="fas fa-envelope"></i> ghsespf@hotmail.com</p>
+        </div>
+      </div>
+
+      <div style="text-align:center;margin-top:1.1rem;color:#a7d9cf;font-size:0.95rem">
+        Direitos reservados © <span id="year"></span> Green Hard & Softh - Escola Superior de Informática
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts: interação e acessibilidade -->
+  <script>
+    // set footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // mobile menu toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    menuToggle.addEventListener('click', () => {
+      const open = mobileMenu.style.display === 'block';
+      mobileMenu.style.display = open ? 'none' : 'block';
+      menuToggle.setAttribute('aria-expanded', String(!open));
+    });
+
+    // Tabs logic (keyboard-friendly, WAI-ARIA)
+    const tabs = Array.from(document.querySelectorAll('.tab-btn'));
+    const panels = Array.from(document.querySelectorAll('[role="tabpanel"]'));
+
+    function activateTab(selectedBtn){
+      tabs.forEach(btn=>{
+        const sel = btn === selectedBtn;
+        btn.setAttribute('aria-selected', sel ? 'true' : 'false');
+        const target = btn.dataset.target;
+        const panel = document.getElementById(target);
+        if(panel){
+          panel.hidden = !sel;
+          if(sel){ panel.classList.add('show'); panel.querySelectorAll('.subject').forEach(s=>s.classList.add('fade-up','show')) }
+          else{ panel.classList.remove('show'); }
+        }
+      });
+    }
+    // default active already set in markup on first tab
+    activateTab(tabs[0]);
+
+    tabs.forEach((btn, idx) => {
+      btn.addEventListener('click', () => activateTab(btn));
+      btn.addEventListener('keydown', (e) => {
+        if(e.key === 'ArrowRight'){ e.preventDefault(); tabs[(idx+1)%tabs.length].focus() }
+        if(e.key === 'ArrowLeft'){ e.preventDefault(); tabs[(idx-1+tabs.length)%tabs.length].focus() }
+        if(e.key === 'Home'){ e.preventDefault(); tabs[0].focus() }
+        if(e.key === 'End'){ e.preventDefault(); tabs[tabs.length-1].focus() }
+        if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); activateTab(btn) }
+      });
+    });
+
+    // Smooth scroll for in-page links with offset for sticky header
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', function(e){
+        const href = this.getAttribute('href');
+        if(!href || href === '#') return;
+        const target = document.querySelector(href);
+        if(target){
+          e.preventDefault();
+          const headerOffset = 86; // estimated sticky header height
+          const rect = target.getBoundingClientRect();
+          const offsetTop = window.pageYOffset + rect.top - headerOffset;
+          window.scrollTo({top: offsetTop, behavior:'smooth'});
+          // if mobile menu open, close it
+          if(getComputedStyle(mobileMenu).display === 'block'){
+            mobileMenu.style.display = 'none';
+            menuToggle.setAttribute('aria-expanded', 'false');
+          }
+        }
+      });
+    });
+
+    // simple reveal on scroll
+    const revealElems = document.querySelectorAll('.fade-up');
+    const io = new IntersectionObserver(entries=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){ entry.target.classList.add('show'); io.unobserve(entry.target) }
+      });
+    }, {threshold:0.12});
+    document.querySelectorAll('.subject').forEach(el=>io.observe(el));
+  </script>
+</body>
+</html>
